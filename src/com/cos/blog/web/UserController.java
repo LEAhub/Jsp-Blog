@@ -9,6 +9,7 @@ import com.cos.blog.util.Script;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -62,6 +63,11 @@ public class UserController extends HttpServlet {
                 String msg = "다시 시도해주세요!";
                 Script.back(response, msg);
             }
+        }else if(cmd.equals("usernameCheck")){
+            BufferedReader br = request.getReader();
+            String username = br.readLine();
+            System.out.println(username);
+
         }
     }
 }
