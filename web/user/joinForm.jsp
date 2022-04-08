@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <html>
-<script src="../libs/jquery-3.6.0.min.js"></script>
 <head>
 
 <script>
