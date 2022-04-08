@@ -1,5 +1,6 @@
 package com.cos.blog.web;
 
+import com.cos.blog.domain.user.UserDao;
 import com.cos.blog.domain.user.dto.JoinReqDto;
 import com.cos.blog.domain.user.dto.LoginReqDto;
 import com.cos.blog.service.UserService;
@@ -53,7 +54,12 @@ public class UserController extends HttpServlet {
             dto.setEmail(email);
             dto.setAddress(address);
             System.out.println(dto);
-            service.회원가입(dto);
+            int result = service.회원가입(dto);
+            if(result == 1){
+                response.sendRedirect("index.jsp");
+            }else{
+                //Script.back();
+            }
         }
     }
 }
