@@ -5,6 +5,7 @@ import com.cos.blog.domain.user.dto.JoinReqDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class UserDao {
      
@@ -42,7 +43,25 @@ public class UserDao {
 
     }
 
-    public void findById(){
+    public int findById(String username){
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int result = 1;
+        try{
+            String sql = "selecet * from user where username = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            rs = pstmt.executeQuery();
+            if(rs.next()) result = 1;
+            else result = -1;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            DB.closeDB(conn, pstmt, rs);
+        }
+        return result;
 
     }
 }

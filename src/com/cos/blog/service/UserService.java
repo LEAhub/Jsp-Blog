@@ -29,7 +29,8 @@ public class UserService {
         return -1;
     }
 
-    public int 아이디중복체크(String username){
-        return -1;
+    public int 유저네임중복체크(String username){
+        int result = userDao.findById(username);
+        return result;
     }
 }
