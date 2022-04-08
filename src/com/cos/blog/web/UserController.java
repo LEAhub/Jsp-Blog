@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.Optional;
 
 @WebServlet("/user")
 public class UserController extends HttpServlet {
@@ -22,11 +23,13 @@ public class UserController extends HttpServlet {
         doPrecess(request, response);
     }
 
-    //http://localhost:8080/blog/user?cmd=
+    //http://localhost:8080/user?cmd=
     protected void doPrecess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String cmd = request.getParameter("cmd");
         UserService service = new UserService();
-        //http://localhost:8080/blog/user?cmd=loginForm
+
+        //http://localhost:8080/user?cmd=loginForm
         if(cmd.equals("loginForm")){
             response.sendRedirect("user/loginForm.jsp");
         }else if(cmd.equals("login")){
@@ -49,7 +52,7 @@ public class UserController extends HttpServlet {
             dto.setPassword(password);
             dto.setEmail(email);
             dto.setAddress(address);
-
+            System.out.println(dto);
             service.회원가입(dto);
         }
     }
