@@ -4,6 +4,7 @@ import com.cos.blog.domain.user.UserDao;
 import com.cos.blog.domain.user.dto.JoinReqDto;
 import com.cos.blog.domain.user.dto.LoginReqDto;
 import com.cos.blog.service.UserService;
+import com.cos.blog.util.Script;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -58,7 +59,8 @@ public class UserController extends HttpServlet {
             if(result == 1){
                 response.sendRedirect("index.jsp");
             }else{
-                //Script.back();
+                String msg = "다시 시도해주세요!";
+                Script.back(response, msg);
             }
         }
     }
