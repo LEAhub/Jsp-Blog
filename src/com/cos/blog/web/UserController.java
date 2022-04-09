@@ -84,6 +84,10 @@ public class UserController extends HttpServlet {
                 out.print("no");
             }
             out.flush();
+        }else if(cmd.equals("logout")){
+            HttpSession session = request.getSession();
+            session.invalidate();
+            response.sendRedirect("index.jsp");
         }
     }
 }
