@@ -18,6 +18,12 @@ public class BoardController extends HttpServlet {
     }
 
     protected void doPrecess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
 
+        String cmd = request.getParameter("cmd");
+
+        if (cmd.equals("saveForm")) {
+            response.sendRedirect("board/saveForm.jsp");
+        }
     }
 }
