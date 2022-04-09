@@ -6,14 +6,20 @@ import java.io.PrintWriter;
 
 public class Script {
 
-    public static void back(HttpServletResponse response, String msg)
-                throws IOException {
-        PrintWriter out = response.getWriter();
-        out.println("<scrpit>");
-        out.println("alret("+msg+")");
-        out.println("history.back();");
-        out.println("</scrpit>");
-        out.flush(); //buffer 비우기
+    public static void back(HttpServletResponse response, String msg) {
+        try{
+            System.out.println("msg : " + msg);
+            response.setCharacterEncoding("EUC-KR");
+            PrintWriter out = response.getWriter();
+            out.println("<script>");
+            out.println("alert('"+msg+"');");
+            out.println("history.back();");
+            out.println("</script>");
+            out.flush(); //buffer 비우기
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
         
     }
 }
