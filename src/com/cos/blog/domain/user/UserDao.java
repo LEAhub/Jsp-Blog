@@ -2,6 +2,7 @@ package com.cos.blog.domain.user;
 
 import com.cos.blog.config.DB;
 import com.cos.blog.domain.user.dto.JoinReqDto;
+import com.cos.blog.domain.user.dto.LoginReqDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,13 +50,14 @@ public class UserDao {
         ResultSet rs = null;
         int result = 1;
         try{
-            String sql = "selecet * from user where username = ?";
+            String sql = "SELECT * FROM user WHERE username = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, username);
             rs = pstmt.executeQuery();
-            if(rs.next()) result = 1;
-            else result = -1;
-
+            if(rs.next()){ result = 1;;
+            }
+            else {result = -1;;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -63,5 +65,33 @@ public class UserDao {
         }
         return result;
 
+    }
+
+    //스프링에서 Persistence API가 있음 자동으로 build 해줌
+    public User findByNameAndPassword(LoginReqDto dto) {
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try{
+            String sql = "SELECT id, username, email, address FROM user " +
+                    "WHERE username = ? AND password = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, dto.getUsername());
+            pstmt.setString(2, dto.getPassword());
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                User user = User.builder().
+                        id(rs.getInt("id")).
+                        username(rs.getString("username")).
+                        email(rs.getString("email")).
+                        address(rs.getString("address")).build();
+                return user;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            DB.closeDB(conn, pstmt, rs);
+        }
+        return null;
     }
 }

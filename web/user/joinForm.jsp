@@ -44,6 +44,7 @@
                             //자바스크립트 오브젝트로 파싱
         }).done(function (data){
             if(data === 'ok'){  //유저네임 있음
+                isChecking = false;
                 alert("동일한 이름이 존재합니다.");
             }else{// 유저 네임 없음
                 isChecking = true;
@@ -53,6 +54,9 @@
     }
 
     function valid(){
+        if(isChecking == false){
+            alert("아이디 중복체크 해주세요");
+        }
         return isChecking;
     }
 </script>
