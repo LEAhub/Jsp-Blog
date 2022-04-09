@@ -1,5 +1,6 @@
 package com.cos.blog.web;
 
+import com.cos.blog.domain.user.User;
 import com.cos.blog.domain.user.UserDao;
 import com.cos.blog.domain.user.dto.JoinReqDto;
 import com.cos.blog.domain.user.dto.LoginReqDto;
@@ -43,7 +44,14 @@ public class UserController extends HttpServlet {
             dto.setUsername(username);
             dto.setPassword(password);
 
-            service.로그인(dto);
+            User userEntity = service.로그인(dto);
+            if(userEntity != null){
+                HttpSession session = request.getSession();
+                session.setAttribute("principal", userEntity);
+                response.sendRedirect("index.jsp");
+            }else{
+                Script.back(response, "다시 시도해주세요");
+            }
         }else if(cmd.equals("joinForm")){
             response.sendRedirect("user/joinForm.jsp");
         }else if(cmd.equals("join")){
