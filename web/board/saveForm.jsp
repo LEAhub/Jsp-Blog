@@ -1,6 +1,10 @@
-
+<%@ page import="com.cos.blog.domain.user.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
+
+<!--해당 페이지로 URL 접근하게 되면 파일 내부에서 세션 체크를 해야 한다.-->
+<!--view와 로직이 구분되지 않음-->
+<!---.jsp로 들어오는 모든 접근을 막아버리면 된다.-->
 
 <div class="container">
     <form action="#" method="POST">
