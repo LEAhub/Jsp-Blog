@@ -45,3 +45,14 @@ foreign key (userId) references user (id) on delete set null,
 foreign key (boardId) references board (id) on delete cascade
 ) engine=InnoDB default charset=utf8;
 ```
+
+
+해당 프로젝트는 유투버 메타코딩님의 영상을 보고 똑같이 만든 프로젝트입니다.
+
+
+
+메타코딩 : https://www.youtube.com/channel/UCVrhnbfe78ODeQglXtT1Elw 
+
+
+
+해당 프로젝트 강좌 : https://www.youtube.com/watch?v=lb7OSgxRRz8&list=PL93mKxaRDidHvJs0PvxcZnUCrUYQZSzBT
