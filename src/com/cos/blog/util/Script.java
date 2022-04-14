@@ -8,8 +8,7 @@ public class Script {
 
     public static void back(HttpServletResponse response, String msg) {
         try{
-            System.out.println("msg : " + msg);
-            response.setCharacterEncoding("EUC-KR");
+
             PrintWriter out = response.getWriter();
             out.println("<script>");
             out.println("alert('"+msg+"');");
