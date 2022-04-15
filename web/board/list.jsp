@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="container">
 
@@ -19,17 +20,38 @@
         <div class="progress-bar" style="width: 70%"></div>
     </div>
 
-    <div class="card col-md-12 m-2">
-        <div class="card-body">
-            <h4 class="card-title">제목</h4>
-            <a href="#" class="btn btn-primary">상세보기</a>
+
+    <c:forEach var="board" items="${requestScope.boards}">
+        <div class="card col-md-12 m-2">
+            <div class="card-body">
+                <h4 class="card-title">${board.title}</h4>
+                <a href="/board?cmd=detail&id=${board.id}" class="btn btn-primary">상세보기</a>
+            </div>
         </div>
-    </div>
+    </c:forEach>
 
     <br />
+<%--    disabled--%>
     <ul class="pagination justify-content-center">
-        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <c:choose>
+            <c:when test="${minCheck}">
+                <li class="page-item disabled"><a class="page-link" href="/board?cmd=list&page=${param.page-1}">Previous</a></li>
+            </c:when>
+            <c:otherwise>
+                <li class="page-item"><a class="page-link" href="/board?cmd=list&page=${param.page-1}">Previous</a></li>
+            </c:otherwise>
+        </c:choose>
+
+        <c:choose>
+            <c:when test="${maxCheck}">
+                <li class="page-item disabled"><a class="page-link" href="/board?cmd=list&page=${param.page+1}">Next</a></li>
+            </c:when>
+            <c:otherwise>
+                <li class="page-item"><a class="page-link" href="/board?cmd=list&page=${param.page+1}">Next</a></li>
+            </c:otherwise>
+        </c:choose>
+
+
     </ul>
 </div>
 
