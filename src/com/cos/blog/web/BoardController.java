@@ -2,6 +2,7 @@ package com.cos.blog.web;
 
 import com.cos.blog.domain.board.Board;
 import com.cos.blog.domain.board.BoardDao;
+import com.cos.blog.domain.board.dto.DetailResDto;
 import com.cos.blog.domain.board.dto.SavaReqDto;
 import com.cos.blog.domain.user.User;
 import com.cos.blog.service.BoardService;
@@ -94,6 +95,16 @@ public class BoardController extends HttpServlet {
 
             RequestDispatcher dis =
                     request.getRequestDispatcher("/board/list.jsp");
+            dis.forward(request,response);
+        }else if(cmd.equals("detail")){
+            int id = Integer.parseInt(request.getParameter("id"));
+            DetailResDto dto = boardService.글상세보기(id); //board 테이블 + user 테이블 = 조인된 데이터
+
+            request.setAttribute("dto", dto);
+
+
+            RequestDispatcher dis
+                    = request.getRequestDispatcher("board/detail.jsp");
             dis.forward(request,response);
         }
     }

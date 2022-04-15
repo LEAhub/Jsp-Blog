@@ -19,4 +19,10 @@ public class Board {
     private String content;
     private int readCount;
     private Timestamp createDate;
+
+    //<> 브라우저에 보이기 위해 코드 작성
+    public String getTitle(){
+        return title.replaceAll("<","&lt;").replaceAll(">","&gt;");
+    }
+
 }

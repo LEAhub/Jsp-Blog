@@ -1,6 +1,7 @@
 package com.cos.blog.domain.board;
 
 import com.cos.blog.config.DB;
+import com.cos.blog.domain.board.dto.DetailResDto;
 import com.cos.blog.domain.board.dto.SavaReqDto;
 import com.cos.blog.domain.user.User;
 import com.cos.blog.domain.user.dto.JoinReqDto;
@@ -12,6 +13,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDao {
+
+    public DetailResDto findById(int id){
+        StringBuffer sb = new StringBuffer();
+        sb.append("select b.id , b.title, b.content, b.readCount, u.username ");
+        sb.append("from board b ");
+        sb.append("inner join user u on b.userId = u.id ");
+        sb.append("where b.id = ?;");
+        String sql = sb.toString();
+
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                DetailResDto dto = new DetailResDto();
+                dto.setId(rs.getInt("b.id"));
+                dto.setTitle(rs.getString("b.title"));
+                dto.setContent(rs.getString("b.content"));
+                dto.setReadCount(rs.getInt("b.readCount"));
+                dto.setUsername(rs.getString("u.username"));
+                return dto;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            DB.closeDB(conn, pstmt, rs);
+        }
+        return null;
+    }
 
 
     public int countBoards(){
