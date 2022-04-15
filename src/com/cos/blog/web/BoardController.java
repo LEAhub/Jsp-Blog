@@ -86,6 +86,12 @@ public class BoardController extends HttpServlet {
             if(page == 0) minCheck = true;
             request.setAttribute("minCheck", minCheck);
 
+            //진행도 확인 processBar 구현
+            double currentPercentage = (double)page / maxPage;
+            int curPer = (int)(currentPercentage * 100);
+            int first = 100 / maxPage;
+            request.setAttribute("curPer",curPer + first);
+
             RequestDispatcher dis =
                     request.getRequestDispatcher("/board/list.jsp");
             dis.forward(request,response);

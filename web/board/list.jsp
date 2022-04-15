@@ -17,7 +17,7 @@
     </div>
 
     <div class="progress col-md-12 m-2">
-        <div class="progress-bar" style="width: 70%"></div>
+        <div class="progress-bar" style="width: ${curPer}%"></div>
     </div>
 
 
@@ -31,8 +31,9 @@
     </c:forEach>
 
     <br />
-<%--    disabled--%>
+    <%--disabled--%>
     <ul class="pagination justify-content-center">
+        <%--첫번째 페이지일 때 disabled--%>
         <c:choose>
             <c:when test="${minCheck}">
                 <li class="page-item disabled"><a class="page-link" href="/board?cmd=list&page=${param.page-1}">Previous</a></li>
@@ -42,6 +43,7 @@
             </c:otherwise>
         </c:choose>
 
+        <%--마지막 페이지일 때 disabled--%>
         <c:choose>
             <c:when test="${maxCheck}">
                 <li class="page-item disabled"><a class="page-link" href="/board?cmd=list&page=${param.page+1}">Next</a></li>
