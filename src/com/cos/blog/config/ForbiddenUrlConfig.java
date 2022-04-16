@@ -46,8 +46,5 @@ public class ForbiddenUrlConfig implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         String excludeUrlsPattern = filterConfig.getInitParameter("excludeUrls");
         excludeUrls = Arrays.asList(excludeUrlsPattern.split(","));
-        for(String url : excludeUrls){
-            System.out.println(url);
-        }
     }
 }
