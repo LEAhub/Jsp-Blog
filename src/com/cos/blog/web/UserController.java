@@ -31,6 +31,7 @@ public class UserController extends HttpServlet {
     //http://localhost:8080/user?cmd=
     protected void doPrecess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         String cmd = request.getParameter("cmd");
         UserService service = new UserService();
 
@@ -53,7 +54,6 @@ public class UserController extends HttpServlet {
                 session.setAttribute("principal", userEntity);
                 response.sendRedirect("index.jsp");
             }else{
-                response.setContentType("text/html; charset=UTF-8");
                 Script.back(response, "다시 시도해주세요");
             }
         }else if(cmd.equals("joinForm")){
@@ -76,7 +76,6 @@ public class UserController extends HttpServlet {
             if(result == 1){
                 response.sendRedirect("index.jsp");
             }else{
-                response.setContentType("text/html; charset=UTF-8");
                 String msg = "다시 시도해주세요!";
                 Script.back(response, msg);
             }

@@ -35,7 +35,7 @@ public class BoardController extends HttpServlet {
 
     protected void doPrecess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
+        response.setContentType("text/html; charset=UTF-8");
         String cmd = request.getParameter("cmd");
 
         BoardService boardService = new BoardService();
@@ -68,7 +68,6 @@ public class BoardController extends HttpServlet {
             if(result == 1){
                 response.sendRedirect("index.jsp");
             }else{
-                response.setContentType("text/html; charset=UTF-8");
                 Script.back(response, "글쓰기 실패");
             }
         } else if (cmd.equals("list")) {
@@ -102,7 +101,6 @@ public class BoardController extends HttpServlet {
                     request.getRequestDispatcher("/board/list.jsp");
             dis.forward(request,response);
         }else if(cmd.equals("detail")){
-            response.setContentType("text/html; charset=UTF-8");
             int id = Integer.parseInt(request.getParameter("id"));
             DetailResDto dto = boardService.글상세보기(id); //board 테이블 + user 테이블 = 조인된 데이터
 
@@ -135,7 +133,6 @@ public class BoardController extends HttpServlet {
             }
             String respData = gson.toJson(resDto);
             System.out.println("respData : " + respData);
-            response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.print(respData);
         }
