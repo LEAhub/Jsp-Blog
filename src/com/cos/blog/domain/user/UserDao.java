@@ -80,6 +80,8 @@ public class UserDao {
             pstmt.setString(2, dto.getPassword());
             rs = pstmt.executeQuery();
             if(rs.next()){
+                //lombok 라이브러리의 메소드, 원하는 변수만 세팅할 수 있다. 컴파일 시 setXxx()함수를 자동 생성하여
+                //값을 참조/할당에 도움을 준다.
                 User user = User.builder().
                         id(rs.getInt("id")).
                         username(rs.getString("username")).
