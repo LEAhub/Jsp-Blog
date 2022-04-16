@@ -27,7 +27,8 @@
         <filter-class>com.cos.blog.config.ForbiddenUrlConfig</filter-class>
         <init-param>
             <param-name>excludeUrls</param-name>
-            <param-value>/,/index.jsp,/board/list.jsp,/user/loginForm.jsp,/user/joinForm.jsp,/board/saveForm.jsp,/user/loginForm.jsp</param-value>
+            <param-value>/,/index.jsp,/board/list.jsp,/user/loginForm.jsp,/user/joinForm.jsp,/board/saveForm.jsp,/user/loginForm.jsp
+            </param-value>
         </init-param>
     </filter>
     <filter-mapping>
