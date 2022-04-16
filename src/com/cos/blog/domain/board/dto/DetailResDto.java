@@ -10,6 +10,7 @@ public class DetailResDto {
     private String content;
     private int readCount;
     private String username;
+    private int userId;
 
     //<> 브라우저에 보이기 위해 코드 작성
     public String getTitle(){
