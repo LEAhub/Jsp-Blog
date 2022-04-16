@@ -14,7 +14,6 @@ public class DB {
             Context envContext = (Context) initContext.lookup("java:/comp/env");
             DataSource ds = (DataSource) envContext.lookup("jdbc/TestDB");
             Connection conn = ds.getConnection();
-            System.out.println("success DB Connection");
             return conn;
         } catch (Exception e) {
             e.printStackTrace();
