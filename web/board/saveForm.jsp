@@ -7,12 +7,12 @@
 <!---.jsp로 들어오는 모든 접근을 막아버리면 된다.-->
 
 <div class="container">
-    <form action="#" method="POST">
-
+    <form action="/board?cmd=save" method="POST">
+        <input type="hidden" name="userId" value="${sessionScope.principal.id}"/>
         <div class="form-group">
             <label for="title">Title:</label>
             <input type="text" class="form-control" placeholder="title" id="title" name="title">
-        </div>
+        </div>saveForm.jsp
 
         <div class="form-group">
             <label for="content">Content:</label>
