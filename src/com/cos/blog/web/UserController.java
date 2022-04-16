@@ -36,7 +36,10 @@ public class UserController extends HttpServlet {
 
         //http://localhost:8080/user?cmd=loginForm
         if(cmd.equals("loginForm")){
-            response.sendRedirect("user/loginForm.jsp");
+            RequestDispatcher dis =
+                    request.getRequestDispatcher("/user/loginForm.jsp");
+            dis.forward(request,response);
+//            response.sendRedirect("user/loginForm.jsp");
         }else if(cmd.equals("login")){
             String username = request.getParameter("username");
             String password = request.getParameter("password");
@@ -50,10 +53,14 @@ public class UserController extends HttpServlet {
                 session.setAttribute("principal", userEntity);
                 response.sendRedirect("index.jsp");
             }else{
+                response.setContentType("text/html; charset=UTF-8");
                 Script.back(response, "다시 시도해주세요");
             }
         }else if(cmd.equals("joinForm")){
-            response.sendRedirect("user/joinForm.jsp");
+//            RequestDispatcher dis =
+//                    request.getRequestDispatcher("/user/joinForm.jsp");
+//            dis.forward(request,response);
+            response.sendRedirect("/user/joinForm.jsp");
         }else if(cmd.equals("join")){
             String username = request.getParameter("username");
             String password = request.getParameter("password");
@@ -69,6 +76,7 @@ public class UserController extends HttpServlet {
             if(result == 1){
                 response.sendRedirect("index.jsp");
             }else{
+                response.setContentType("text/html; charset=UTF-8");
                 String msg = "다시 시도해주세요!";
                 Script.back(response, msg);
             }
