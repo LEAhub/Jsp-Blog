@@ -14,6 +14,25 @@ import java.util.List;
 
 public class BoardDao {
 
+
+    public int updateReadCount(int id){
+        Connection conn = DB.getConnection();
+        PreparedStatement pstmt = null;
+
+        try{
+            String sql = "UPDATE board SET readCount = readCount+1 WHERE id = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            int result = pstmt.executeUpdate();
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            DB.closeDB(conn, pstmt);
+        }
+        return -1;
+    }
+
     public DetailResDto findById(int id){
         StringBuffer sb = new StringBuffer();
         sb.append("select b.id , b.title, b.content, b.readCount, u.username ");

@@ -97,15 +97,19 @@ public class BoardController extends HttpServlet {
                     request.getRequestDispatcher("/board/list.jsp");
             dis.forward(request,response);
         }else if(cmd.equals("detail")){
+            response.setContentType("text/html; charset=UTF-8");
             int id = Integer.parseInt(request.getParameter("id"));
             DetailResDto dto = boardService.글상세보기(id); //board 테이블 + user 테이블 = 조인된 데이터
 
-            request.setAttribute("dto", dto);
+            if(dto == null){
+                Script.back(response,"상세보기에 실패하였습니다.");
+            }else{
+                request.setAttribute("dto", dto);
+                RequestDispatcher dis
+                        = request.getRequestDispatcher("board/detail.jsp");
+                dis.forward(request,response);
+            }
 
-
-            RequestDispatcher dis
-                    = request.getRequestDispatcher("board/detail.jsp");
-            dis.forward(request,response);
         }
     }
 }
