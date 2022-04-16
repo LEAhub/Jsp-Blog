@@ -2,16 +2,21 @@ package com.cos.blog.web;
 
 import com.cos.blog.domain.board.Board;
 import com.cos.blog.domain.board.BoardDao;
+import com.cos.blog.domain.board.dto.DeleteReqDto;
+import com.cos.blog.domain.board.dto.DeleteResDto;
 import com.cos.blog.domain.board.dto.DetailResDto;
 import com.cos.blog.domain.board.dto.SavaReqDto;
 import com.cos.blog.domain.user.User;
 import com.cos.blog.service.BoardService;
 import com.cos.blog.util.Script;
+import com.google.gson.Gson;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -110,6 +115,29 @@ public class BoardController extends HttpServlet {
                 dis.forward(request,response);
             }
 
+        } else if (cmd.equals("delete")) {
+            //js에서 json으로 받아왔기 때문에 BufferedReader 객체 사용
+            BufferedReader br = request.getReader();
+            String data = br.readLine();
+//            System.out.println("data :"  + data);
+            //Gson 라이브러리로 json과 객체 형변환 가능
+            Gson gson = new Gson();
+            DeleteReqDto dto = gson.fromJson(data, DeleteReqDto.class);
+//            System.out.println("dto :"  +dto);
+
+            //글삭제 service 구현
+            int result = boardService.글삭제(dto.getBoardId());
+            DeleteResDto resDto = new DeleteResDto();
+            if (result == 1) {
+                resDto.setStatus("ok");
+            }else{
+                resDto.setStatus("fail");
+            }
+            String respData = gson.toJson(resDto);
+            System.out.println("respData : " + respData);
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.print(respData);
         }
     }
 }

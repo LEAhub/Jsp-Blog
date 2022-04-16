@@ -15,6 +15,11 @@ public class BoardService {
         boardDao = new BoardDao();
     }
 
+
+    public int 글삭제(int id){
+        return boardDao.deleteById(id);
+    }
+
     public int 글쓰기(SavaReqDto dto){
         int result = boardDao.save(dto);
         return result;
