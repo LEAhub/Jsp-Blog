@@ -8,6 +8,35 @@
 
 
 <div class="container">
+    <c:if test="${sessionScope.principal.id == dto.userId}">
+    <button onClick="deleteById(${dto.id})" class="btn btn-danger">삭제</button>
+    </c:if>
+
+    <script>
+        function deleteById(boardId){
+
+            var data = {
+                boardId: boardId
+            };
+            console.log(JSON.stringify(data));
+            console.log(data);
+            $.ajax({
+                type : "POST",
+                url : "board?cmd=delete",
+                data : JSON.stringify(data),
+                contentType: "applitcation/json; charset=utf-8",
+                dataType:"json"
+            }).done(function(result){
+                console.log(result);
+                if(result.status == "ok"){
+                    location.href = "index.jsp";
+                }else{
+                    alert("삭제 실패했습니다.");
+                }
+            });
+        }
+
+    </script>
     <br />
     <br />
     <h6 class="m-2">
